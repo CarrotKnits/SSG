@@ -11,4 +11,7 @@ def to_html(self):
     raise NotImplementedError("Not Implemented.")
 
 def props_to_html(self):
-    pass
+    html_attributes_string = ""
+    for prop in self.props:
+        html_attributes_string = html_attributes_string + f' {prop}="{self.props[prop]}"'
+    
