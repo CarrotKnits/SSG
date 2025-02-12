@@ -50,6 +50,18 @@ class ParentNode(HTMLNode):
     def to_html(self):
         if not self.tag:
             raise ValueError("INVALID: All parent nodes MUST have a tag")
-        if not self.children:
+        elif not self.children:
             raise ValueError("INVALID: All parent nodes MUST have children. Otherwise they aren't parents. It's only logic bro.")
-        
+        else:
+            props_string = ""
+            for prop in self.props:
+                props_string = props_string + f' {prop}="{self.props[prop]}"'
+            
+            children_string = ""
+            for child in self.children:
+                if not child.children:
+                    children_string = children_string + f'{child}'
+                else:
+                    children_string = child.to_html()
+            return f'<{self.tag}{props_string}>{children_string}</{self.tag}>'
+            
