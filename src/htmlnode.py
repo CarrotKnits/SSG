@@ -59,7 +59,7 @@ class ParentNode(HTMLNode):
             
             children_string = ""
             for child in self.children:
-                if not child.children:
+                if child.children == None:
                     children_string = children_string + f'{child}'
                 else:
                     children_string = child.to_html()
