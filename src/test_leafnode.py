@@ -8,7 +8,6 @@ class TestLeafNode(unittest.TestCase):
     def test_props_eq(self):
         node = LeafNode("a", "Poop clicker!", {"href": "https://www.google.com"})
         string = '<a href="https://www.google.com">Poop clicker!</a>'
-        print("LEAF_NODE_TEST:",node.to_html(), '\n-----',string)
         self.assertEqual(node.to_html(), string)
 
     def test_no_value(self):
@@ -20,6 +19,4 @@ class TestLeafNode(unittest.TestCase):
     def test_no_tag(self):
         node = LeafNode(None, "This text has no tag!")
         string = 'This text has no tag!'
-        print("NO TAG:",node.to_html(), '\n-----',string)
         self.assertEqual(node.to_html(), string)
-        

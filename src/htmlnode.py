@@ -36,8 +36,9 @@ class LeafNode(HTMLNode):
             return str(self.value)
         else:
             props_string = ''
-            for prop in self.props:
-                props_string = props_string + f' {prop}="{self.props[prop]}"'
+            if self.props != None:
+                for prop in self.props:
+                    props_string = props_string + f' {prop}="{self.props[prop]}"'
             return f'<{self.tag}{props_string}>{self.value}</{self.tag}>'
         
 class ParentNode(HTMLNode):
@@ -54,14 +55,12 @@ class ParentNode(HTMLNode):
             raise ValueError("INVALID: All parent nodes MUST have children. Otherwise they aren't parents. It's only logic bro.")
         else:
             props_string = ""
-            for prop in self.props:
-                props_string = props_string + f' {prop}="{self.props[prop]}"'
+            if self.props != None:
+                for prop in self.props:
+                    props_string = props_string + f' {prop}="{self.props[prop]}"'
             
             children_string = ""
             for child in self.children:
-                if child.children == None:
-                    children_string = children_string + f'{child}'
-                else:
-                    children_string = child.to_html()
+                children_string = children_string + child.to_html()
             return f'<{self.tag}{props_string}>{children_string}</{self.tag}>'
             
