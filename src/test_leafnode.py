@@ -22,7 +22,4 @@ class TestLeafNode(unittest.TestCase):
         string = 'This text has no tag!'
         print("NO TAG:",node.to_html(), '\n-----',string)
         self.assertEqual(node.to_html(), string)
-
-    # Edge Cases
-
         
