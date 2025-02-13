@@ -1,6 +1,7 @@
 import unittest
 
 from htmlnode import ParentNode, LeafNode
+from textnode import TextNode, text_node_to_html_node
 
 class TestParentNode(unittest.TestCase):
     # Main Paths
@@ -44,17 +45,6 @@ class TestParentNode(unittest.TestCase):
             LeafNode(None, "More text")
         ], None)
         string = '<div>Plain text<p><b>Bold text</b></p>More text</div>'
-        # Pretty print to console
-        print("\nMIXED_CHILDREN_TEST Pretty Print:")
-        print('<div>')
-        print('    Plain text')
-        print('    <p>')
-        print('        <b>Bold text</b>')
-        print('    </p>')
-        print('    More text')
-        print('</div>')
-        print("Actual output:", node.to_html())
-        print("Expected output:", string)
         self.assertEqual(node.to_html(), string)
 
     def test_deeply_nested(self):
@@ -68,19 +58,6 @@ class TestParentNode(unittest.TestCase):
             ], None)
         ], None)
         string = '<div><div><p><span><b>Deep text</b></span></p></div></div>'
-        # Pretty print to console
-        print("\nDEEPLY_NESTED_TEST Pretty Print:")
-        print('<div>')
-        print('    <div>')
-        print('        <p>')
-        print('            <span>')
-        print('                <b>Deep text</b>')
-        print('            </span>')
-        print('        </p>')
-        print('    </div>')
-        print('</div>')
-        print("Actual output:", node.to_html())
-        print("Expected output:", string)
         self.assertEqual(node.to_html(), string)
     
     def test_mixed_tag_types(self):
