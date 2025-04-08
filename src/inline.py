@@ -20,7 +20,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type): #old_nodes is a list
             continue
 
         # Find closing delimiter (starting search after opening one)
-        end_index = text.find(delimiter, start_index = len(delimiter))
+        end_index = text.find(delimiter, start_index + len(delimiter))
 
         # If no closing delimiter found, raise exception
         if end_index == -1:
