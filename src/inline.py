@@ -7,7 +7,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type): #old_nodes is a list
     for old_node in old_nodes:
         # Skip non-text nodes
         if old_node.text_type != TextType.NORMAL:
-            new_nodes.append(node)
+            new_nodes.append(old_node)
             continue
 
         text = old_node.text
