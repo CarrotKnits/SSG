@@ -113,14 +113,3 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(result[7].text_type, TextType.ITALIC)
         self.assertEqual(result[8].text, " word")
         self.assertEqual(result[8].text_type, TextType.NORMAL)
-        
-        # Non-NORMAL nodes in the input
-
-
-        # Invalid nodes in the input
-
-
-        #Consecutive delimiters
-         
-         
-        # Test for invalid delimiter
