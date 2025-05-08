@@ -1,5 +1,5 @@
 import unittest
-from inline import split_nodes_delimiter
+from inline import split_nodes_delimiter, extract_markdown_images
 from textnode import TextNode, TextType
 
 class TestSplitNodesDelimiter(unittest.TestCase):
@@ -113,3 +113,9 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(result[7].text_type, TextType.ITALIC)
         self.assertEqual(result[8].text, " word")
         self.assertEqual(result[8].text_type, TextType.NORMAL)
+
+
+class TestExtractMarkdownImages(unittest.TestCase):
+    # test extraction of images
+    def test_img_extraction(self):
+        
