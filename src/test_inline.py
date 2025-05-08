@@ -117,5 +117,11 @@ class TestSplitNodesDelimiter(unittest.TestCase):
 
 class TestExtractMarkdownImages(unittest.TestCase):
     # test extraction of images
-    def test_img_extraction(self):
-        
+    def test_extract_markdown_images(self):
+        matches = extract_markdown_images("This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)")
+        self.assertListEqual([("image", "https://i.imgur.com/zjjcJKZ.png")], matches)
+    
+    # test if ignores links
+    #def test_extract_markdown_images(self):
+        #matches = extract_markdown_images("This is text with an [link](https://i.imgur.com/zjjcJKZ.png)")
+        #self.assertListEqual([( , )], matches)
