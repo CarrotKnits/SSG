@@ -12,5 +12,11 @@ class HTMLNode:
         raise NotImplementedError("Function not yet implemented")
     
     def props_to_html(self):
-        if self.props is None:
+        if self.props is None or {}:
             return ""
+        else:
+            formatted_string = ''
+            for key in self.props:
+                formatted_string = formatted_string + f' {key}="{self.props[key]}"'
+            print(formatted_string)
+            return formatted_string
