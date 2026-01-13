@@ -18,7 +18,6 @@ class HTMLNode:
             formatted_string = ''
             for key in self.props:
                 formatted_string = formatted_string + f' {key}="{self.props[key]}"'
-            print(formatted_string)
             return formatted_string
 
     def __eq__(self, other):
