@@ -25,9 +25,18 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type): # old_nodes = list, 
             delimiter_count = len(text_parts) - 1
             if delimiter_count % 2 != 0:
                 raise Exception("Invalid Markdown syntax")
-            for i in len(text_parts):
-                if text_parts[i] % 2 == 0:
+            for i, part in enumerate(text_parts):
+                if part == "":
+                    continue # skip empty strings
+                if i % 2 == 0:
+                    # outside selimiters -> plain text
+                    node_type = TextType.TEXT
+                else:
+                    # inside delimiters -> special text
+                    node_type = text_type
 
+                new_nodes_list.append(TextNode(part, node_type))
+                    
 
 def extract_markdown_images(text):
     matches = re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
