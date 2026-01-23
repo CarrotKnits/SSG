@@ -29,13 +29,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type): # old_nodes = list, 
                 if part == "":
                     continue # skip empty strings
                 if i % 2 == 0:
-                    # outside selimiters -> plain text
+                    # outside delimiters -> plain text
                     node_type = TextType.TEXT
                 else:
                     # inside delimiters -> special text
                     node_type = text_type
-
                 new_nodes_list.append(TextNode(part, node_type))
+    return new_nodes_list
                     
 
 def extract_markdown_images(text):
