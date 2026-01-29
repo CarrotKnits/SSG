@@ -99,3 +99,38 @@ def split_nodes_link(old_nodes):
             else:
                 new_nodes_list.append(TextNode(current_text, TextType.TEXT))
     return new_nodes_list
+
+
+# Functions to integrate into 'text_to_textnodes' function:
+#   split_nodes_delimiter(old_nodes, delimiter, text_type)
+#   split_nodes_image(old_nodes)
+#   split_nodes_link(old_nodes)
+
+# Sample input: This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)
+# Sample output:
+#[
+#    TextNode("This is ", TextType.TEXT),
+#    TextNode("text", TextType.BOLD),
+#    TextNode(" with an ", TextType.TEXT),
+#    TextNode("italic", TextType.ITALIC),
+#    TextNode(" word and a ", TextType.TEXT),
+#    TextNode("code block", TextType.CODE),
+#    TextNode(" and an ", TextType.TEXT),
+#    TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+#    TextNode(" and a ", TextType.TEXT),
+#    TextNode("link", TextType.LINK, "https://boot.dev"),
+#]
+
+def text_to_textnodes(text):
+    text_node = TextNode(text, TextType.TEXT, None)
+    new_nodes = split_nodes_delimiter(text_node, "**", TextType.BOLD)
+    new_nodes = split_nodes_delimiter(new_nodes, "_", TextType.ITALIC)
+    new_nodes = split_nodes_delimiter(new_nodes, "`", TextType.CODE)
+    new_nodes = split_nodes_image(new_nodes)
+    new_nodes = split_nodes_link(new_nodes)
+    return new_nodes
+
+
+
+
+
