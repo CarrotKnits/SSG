@@ -49,7 +49,7 @@ def markdown_to_blocks(markdown): # markdown is a raw Markdown string: represent
     striped_blocks = []
     blocks = markdown.split("\n\n")
     for block in blocks:
-        striped_blocks.append(block.strip())
+        striped_blocks.append(block.strip(" \n"))
     for block in striped_blocks:
         if block != "":
             final_blocks.append(block)
