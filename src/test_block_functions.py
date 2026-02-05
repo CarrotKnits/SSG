@@ -174,3 +174,54 @@ class TestMarkdownToHTML(unittest.TestCase):
             html,
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
+
+    def test_quote(self):
+        md = """
+    >This is a
+    > multi-line _quote_
+    >that is **uninspiring**
+    """
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><blockquote>This is a\nmulti-line <i>quote</i>\nthat is <b>uninspiring</b></blockquote></div>",
+        )
+
+    def test_unordered_list(self):
+        md = """
+    - is in no
+    - This list
+    - particular
+    - unordered
+    - order, hence
+    """
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ul><li>is in no</li><li>This list</li><li>particular</li><li>unordered</li><li>order, hence</li></ul></div>",
+        )
+
+    def test_ordered_list(self):
+        md = """
+    1. This list
+    2. is in a
+    3. particular
+    4. order
+    5. hence, ordered
+    """
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ol><li>This list</li><li>is in a</li><li>particular</li><li>order</li><li>hence, ordered</li></ol></div>",
+        )
+
+    #def test_heading(self):
+
+
+    #def test_multiple_headings(self):
