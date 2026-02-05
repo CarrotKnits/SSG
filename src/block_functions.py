@@ -71,23 +71,17 @@ def block_to_heading(block):
     stripped = block[hashtag_count:]
     text = stripped.lstrip(" ")
     if hashtag_count == 1:
-        node = ParentNode("h1", text_to_children(text), props=None)
-        return node
+        return ParentNode("h1", text_to_children(text), props=None)
     elif hashtag_count == 2:
-        node = ParentNode("h2", text_to_children(text), props=None)
-        return node
+        return ParentNode("h2", text_to_children(text), props=None)
     elif hashtag_count == 3:
-        node = ParentNode("h3", text_to_children(text), props=None)
-        return node
+        return ParentNode("h3", text_to_children(text), props=None)
     elif hashtag_count == 4:
-        node = ParentNode("h4", text_to_children(text), props=None)
-        return node
+        return ParentNode("h4", text_to_children(text), props=None)
     elif hashtag_count == 5:
-        node = ParentNode("h5", text_to_children(text), props=None)
-        return node
+        return ParentNode("h5", text_to_children(text), props=None)
     elif hashtag_count == 6:
-        node = ParentNode("h6", text_to_children(text), props=None)
-        return node
+        return ParentNode("h6", text_to_children(text), props=None)
 
 def block_to_quote(block):
     lines = block.split("\n")
