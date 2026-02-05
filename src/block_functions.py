@@ -27,31 +27,25 @@ def block_to_block_type(block):
         return BlockType.HEADING
     elif block.startswith("```\n") and block.endswith("```"):
         return BlockType.CODE
-    elif block.startswith(">"):
-        lines = block.split("\n")
-        for line in lines:
-            if line.startswith(">"):
-                continue
-            else:
-                return BlockType.PARAGRAPH
+    elif block.lstrip().startswith(">"):
         return BlockType.QUOTE
-    elif block.startswith("- "):
+    elif block.lstrip().startswith("- "):
         lines = block.split("\n")
         for line in lines:
-            if line.startswith("- "):
+            if line.strip() == "":
                 continue
-            else:
+            if not line.lstrip().startswith("- "):
                 return BlockType.PARAGRAPH
         return BlockType.UNORDERED_LIST
-    elif block.startswith("1."):
+    elif block.lstrip().startswith("1. "):
         counter = 1
         lines = block.split("\n")
         for line in lines:
-            if line.startswith(f"{counter}. "):
-                counter += 1
+            if line.strip() == "":
                 continue
-            else:
+            if not line.lstrip().startswith(f"{counter}. "):
                 return BlockType.PARAGRAPH
+            counter += 1
         return BlockType.ORDERED_LIST
     else:
         return BlockType.PARAGRAPH
@@ -99,8 +93,9 @@ def block_to_quote(block):
     lines = block.split("\n")
     stripped_lines = []
     for line in lines:
+        line = line.lstrip()
         if line.strip() == "":
-            continue
+            continue     
         stripped = line.removeprefix("> ").removeprefix(">")
         stripped_lines.append(stripped)
     text = "\n".join(stripped_lines)
@@ -112,6 +107,7 @@ def block_to_unordered_list(block):
     li_children = []
     lines = block.split("\n")
     for line in lines:
+        line = line.lstrip()
         if line.strip() == "":
             continue
         stripped = line.removeprefix("* ").removeprefix("- ")
@@ -123,16 +119,15 @@ def block_to_unordered_list(block):
 
 def block_to_ordered_list(block):
     li_children = []
-    counter = 1
     lines = block.split("\n")
     for line in lines:
+        line.lstrip()
         if line.strip() == "":
             continue
-        stripped = line.removeprefix(f"{counter}. ")
+        _, stripped = line.split(". ", 1)
         inline_children = text_to_children(stripped)
         li_node = ParentNode("li", inline_children, props=None)
         li_children.append(li_node)
-        counter += 1
     node = ParentNode("ol", li_children, props=None)
     return node
 
