@@ -4,25 +4,33 @@ from textnode import TextType, TextNode, text_node_to_html_node
 from inline_functions import text_to_textnodes
 
 def markdown_to_blocks(markdown): # markdown is a raw Markdown string: represents a full document
-    final_blocks = []
-    striped_blocks = []
     lines = markdown.split("\n")
-    current_block_lines = []
+    blocks = []
+    current = []
+
     for line in lines:
         if line.strip() == "":
-            #end current block
-        #elif line is heading and current_block_lines is not empty:
-            #end current block
-            #start new block with just this line
-        #else:
-            #just append this line to current_block_lines
-
-    for block in blocks:
-        striped_blocks.append(block.strip(" \n"))
-    for block in striped_blocks:
-        if block != "":
-            final_blocks.append(block)
-    return final_blocks
+            if current:
+                block_text = "\n".join(current).strip(" \n")
+                if block_text != "":
+                    blocks.append(block_text)
+                current = []
+        elif is_heading_line(line) and current:
+            if current:
+                block_text = "\n".join(current).strip(" \n")
+                if block_text != "":
+                    blocks.append(block_text)
+                current = []
+            current = [line]
+        else:
+            current.append(line)
+            
+    if current:
+        block_text = "\n".join(current).strip(" \n")
+        if block_text != "":
+            blocks.append(block_text)
+    
+    return blocks
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
