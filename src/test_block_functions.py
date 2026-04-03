@@ -221,7 +221,19 @@ class TestMarkdownToHTML(unittest.TestCase):
             "<div><ol><li>This list</li><li>is in a</li><li>particular</li><li>order</li><li>hence, ordered</li></ol></div>",
         )
 
-    def test_headings(self):
+    def test_one_heading(self):
+        md = """
+    # Heading **One**
+    """
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><h1>Heading <b>One</b></h1></div>",
+        )
+
+    def test_multiple_headings(self):
         md = """
     # Title **One**
     ## Subtitle _Two_
@@ -232,5 +244,5 @@ class TestMarkdownToHTML(unittest.TestCase):
         html = node.to_html()
         self.assertEqual(
             html,
-            "<div><h1>Title <b>One</b>\n</h1><h2>Subtitle <i>Two</i></h2>\n<h6>Tiny <code>Three</code></h6></div>",
+            "<div><h1>Title <b>One</b></h1><h2>Subtitle <i>Two</i></h2><h6>Tiny <code>Three</code></h6></div>",
         )
