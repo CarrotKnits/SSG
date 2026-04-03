@@ -24,7 +24,7 @@ def markdown_to_blocks(markdown): # markdown is a raw Markdown string: represent
             current = [line]
         else:
             current.append(line)
-            
+
     if current:
         block_text = "\n".join(current).strip(" \n")
         if block_text != "":
@@ -41,23 +41,24 @@ class BlockType(Enum):
     ORDERED_LIST = "ordered list"
 
 def block_to_block_type(block):
-    if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
+    stripped = block.lstrip()
+    if stripped.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.HEADING
-    elif block.startswith("```\n") and block.endswith("```"):
+    elif stripped.startswith("```\n") and block.endswith("```"):
         return BlockType.CODE
-    elif block.lstrip().startswith(">"):
+    elif stripped.lstrip().startswith(">"):
         return BlockType.QUOTE
-    elif block.lstrip().startswith("- "):
-        lines = block.split("\n")
+    elif stripped.lstrip().startswith("- "):
+        lines = stripped.split("\n")
         for line in lines:
             if line.strip() == "":
                 continue
             if not line.lstrip().startswith("- "):
                 return BlockType.PARAGRAPH
         return BlockType.UNORDERED_LIST
-    elif block.lstrip().startswith("1. "):
+    elif stripped.lstrip().startswith("1. "):
         counter = 1
-        lines = block.split("\n")
+        lines = stripped.split("\n")
         for line in lines:
             if line.strip() == "":
                 continue
@@ -85,15 +86,14 @@ def block_to_paragraph(block):
     return node
 
 def is_heading_line(line):
-    if line.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
-        return True
-    else:
-        return False
+    stripped = line.lstrip()
+    return stripped.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### "))
 
 def block_to_heading(block):
-    hashtag_count = len(block) - len(block.lstrip("#"))
-    stripped = block[hashtag_count:]
-    text = stripped.lstrip(" ")
+    stripped_block = block.lstrip()
+    hashtag_count = len(stripped_block) - len(stripped_block.lstrip("#"))
+    text = stripped_block[hashtag_count:].lstrip(" ")
+
     if hashtag_count == 1:
         return ParentNode("h1", text_to_children(text), props=None)
     elif hashtag_count == 2:
